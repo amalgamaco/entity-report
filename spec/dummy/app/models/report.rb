@@ -17,12 +17,18 @@ private
 	def valid_reason?
 		return if reportable.valid_reason?(reason)
 		#Adapt errors to your project
-		raise "'#{reason}' is not a valid reason"
+		raise EntityReport::Errors::InvalidError.new(
+			:reason, 
+			"'#{reason}' is not a valid reason"
+		) 
 	end
 
 	def description_needed?
 		return unless reportable.description_needed?(reason) && description.blank?
 		#Adapt errors to your project
-		raise "description cannot be blank when the report reason is '#{reason}'"
+		raise EntityReport::Errors::InvalidError.new(
+			:description, 
+			"description cannot be blank when the report reason is '#{reason}'"
+		) 
 	end
 end

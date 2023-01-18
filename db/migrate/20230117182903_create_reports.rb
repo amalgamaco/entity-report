@@ -1,4 +1,4 @@
-class <%= migration_class_name %> < ActiveRecord::Migration<%= migration_version %>
+class CreateReports < ActiveRecord::Migration[7.0]
 	def change
 		create_table :reports do |t|
 			t.references :reportable, null: false, polymorphic: true
