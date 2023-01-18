@@ -8,3 +8,10 @@ RSpec.shared_context 'when using doorkeeper' do
 		allow(controller).to receive(:current_user) { current_user }
 	end
 end
+
+# rubocop:disable RSpec/VariableName
+RSpec.shared_context 'with user authenticated' do
+	let(:current_client) { Doorkeeper::Application.create(name: 'api test client', redirect_uri: '', scopes: 'api') }
+	let(:Authorization) { "Bearer #{auth_token_for_requests(current_user, current_client)}" }
+end
+# rubocop:enable RSpec/VariableName

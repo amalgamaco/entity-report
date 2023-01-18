@@ -50,7 +50,7 @@ RSpec.describe '/reports', type: :request do
 					submit_request(example.metadata)
 				end
 				
-				it 'returns a valid 201 response' do |example|
+				it 'returns a valid 200 response' do |example|
 					assert_response_matches_metadata(example.metadata)
 				end
 			end

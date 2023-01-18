@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 RSpec.shared_examples 'CreateReport is successful' do
 	it 'creates a new report' do
 		expect { call_interactor }.to change(Report, :count).by(1)
@@ -113,6 +112,5 @@ RSpec.describe EntityReport::Interactors::CreateReport do
 
 			include_examples 'CreateReport fails', EntityReport::Errors::InvalidError
 		end
-
 	end
 end

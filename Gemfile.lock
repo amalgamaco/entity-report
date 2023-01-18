@@ -3,12 +3,14 @@ PATH
   specs:
     entity_report (0.1.0)
       bundler
+      jsonapi.rb
       openssl
       rails (>= 7.0.3.1)
       railties (>= 5.2.0)
       rake
       rspec
       rspec-rails
+      rswag
 
 GEM
   remote: https://rubygems.org/
@@ -152,10 +154,17 @@ GEM
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     json (2.6.3)
+    json-schema (3.0.0)
+      addressable (>= 2.8)
+    jsonapi-serializer (2.2.0)
+      activesupport (>= 4.2)
+    jsonapi.rb (2.0.1)
+      jsonapi-serializer
+      rack
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.8.0)
+    mail (2.8.0.1)
       mini_mime (>= 0.1.1)
       net-imap
       net-pop
@@ -175,7 +184,7 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
-    nokogiri (1.13.10-x86_64-darwin)
+    nokogiri (1.14.0-x86_64-darwin)
       racc (~> 1.4)
     openssl (3.1.0)
     orm_adapter (0.5.0)
@@ -243,6 +252,20 @@ GEM
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
     rspec-support (3.12.0)
+    rswag (2.8.0)
+      rswag-api (= 2.8.0)
+      rswag-specs (= 2.8.0)
+      rswag-ui (= 2.8.0)
+    rswag-api (2.8.0)
+      railties (>= 3.1, < 7.1)
+    rswag-specs (2.8.0)
+      activesupport (>= 3.1, < 7.1)
+      json-schema (>= 2.2, < 4.0)
+      railties (>= 3.1, < 7.1)
+      rspec-core (>= 2.14)
+    rswag-ui (2.8.0)
+      actionpack (>= 3.1, < 7.1)
+      railties (>= 3.1, < 7.1)
     rubocop (0.93.1)
       parallel (~> 1.10)
       parser (>= 2.7.1.5)
@@ -261,7 +284,7 @@ GEM
     ruby-progressbar (1.11.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
-    sqlite3 (1.5.4-x86_64-darwin)
+    sqlite3 (1.6.0-x86_64-darwin)
     test-unit (3.5.7)
       power_assert
     test-unit-activesupport (1.1.1)
@@ -301,11 +324,16 @@ DEPENDENCIES
   byebug
   config
   devise
-  doorkeeper
+  doorkeeper (~> 5.6)
   entity_report!
   factory_bot_rails
+  jsonapi.rb
   rake (~> 13.0)
   rspec (~> 3.0)
+  rspec-rails
+  rswag-api
+  rswag-specs
+  rswag-ui
   rubocop (~> 0.80)
   rubocop-rails
   shoulda-matchers
@@ -313,4 +341,4 @@ DEPENDENCIES
   test-unit-rails
 
 BUNDLED WITH
-   2.2.3
+   2.4.3

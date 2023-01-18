@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
 	resources :reports, only: [:create]
 
+	post 'empty' => 'empty#create'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
