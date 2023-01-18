@@ -5,11 +5,17 @@ require 'byebug'
 require 'devise'
 require 'doorkeeper'
 require 'factory_bot_rails'
-require 'active_record'
 
+require_relative '../spec/dummy/config/environment'
 require_relative '../spec/support/helpers'
+require_relative '../spec/support/swagger'
+require_relative '../spec/support/requests'
 require_relative '../spec/shared_examples/for_interactors'
 require_relative '../spec/shared_contexts/for_controllers'
+require_relative '../spec/shared_contexts/for_swagger'
+require_relative '../spec/shared_examples/for_requests'
+require_relative '../spec/factories/users'
+require_relative '../spec/factories/reports'
 
 ActiveRecord::Migrator.migrations_paths = [File.expand_path("../spec/dummy/db/migrate", __dir__)]
 

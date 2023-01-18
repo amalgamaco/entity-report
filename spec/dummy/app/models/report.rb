@@ -1,0 +1,34 @@
+class Report < ActiveRecord::Base
+	#Adapt reportable types to your project	
+	REPORTABLE_TYPES = [User].map(&:name).freeze
+
+	belongs_to :reportable, polymorphic: true
+	belongs_to :user
+
+	validates :reason, :reportable, :user, presence: true
+	validate :valid_reason?, :description_needed?, unless: -> { reportable.nil? }
+
+	def self.valid_reportable_type?(reportable_type)
+		Report::REPORTABLE_TYPES.include?(reportable_type)
+	end
+
+private
+
+	def valid_reason?
+		return if reportable.valid_reason?(reason)
+		#Adapt errors to your project
+		raise EntityReport::Errors::InvalidError.new(
+			:reason, 
+			"'#{reason}' is not a valid reason"
+		) 
+	end
+
+	def description_needed?
+		return unless reportable.description_needed?(reason) && description.blank?
+		#Adapt errors to your project
+		raise EntityReport::Errors::InvalidError.new(
+			:description, 
+			"description cannot be blank when the report reason is '#{reason}'"
+		) 
+	end
+end

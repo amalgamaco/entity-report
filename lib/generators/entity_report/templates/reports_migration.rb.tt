@@ -7,8 +7,7 @@ class <%= migration_class_name %> < ActiveRecord::Migration<%= migration_version
 			t.references :user, null: false, foreign_key: true
 
 			t.index [:user_id, :reportable_type, :reportable_id], unique: true
-			t.index [:user_id]
-			t.index [:reportable_type, reportable_id]
+			t.index [:reportable_type, :reportable_id]
 
 			t.timestamps
 		end
