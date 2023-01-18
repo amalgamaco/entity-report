@@ -33,5 +33,6 @@ module EntityReport
 		autoload :NotFoundError, 'entity_report/errors/not_found_error'
 		autoload :UnprocessableError, 'entity_report/errors/unprocessable_error'
 		autoload :InvalidError, 'entity_report/errors/invalid_error'
+		autoload :MethodRequiredError, 'entity_report/errors/method_required_error'
 	end
 end

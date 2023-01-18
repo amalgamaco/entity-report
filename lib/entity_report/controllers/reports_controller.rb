@@ -9,6 +9,8 @@ module EntityReport
 			include ErrorRaiser
 			include ApiHandlers
 			
+			REQUIRED_METHODS = [ :current_user, :report_klass, :report_mailer ]
+
 			def create
 				render_successful_response CreateReport
 						.with(
@@ -25,12 +27,9 @@ module EntityReport
 				params.permit(:reportable_type, :reportable_id, :reason, :description)
 			end
 
-			def report_klass
-				method_required( :report_klass, self)
-			end
-
-			def report_mailer
-				method_required( :report_mailer, self)
+			def method_missing(method, *args, &block)
+				raise MethodRequiredError.new(method, self.class) if REQUIRED_METHODS.include? method
+				super
 			end
 		end
 	end
