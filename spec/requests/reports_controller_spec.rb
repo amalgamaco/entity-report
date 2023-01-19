@@ -64,6 +64,11 @@ RSpec.describe '/reports', type: :request do
 				let(:reportable_id) { User.last.id + 10 }
 				include_context 'swagger setup and run test'
 			end
+			
+			response(422, 'Cannot report reportable') do
+				let(:reportable) { current_user }
+				include_context 'swagger setup and run test'
+			end
 		end
 	end
 end
