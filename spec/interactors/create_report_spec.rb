@@ -64,6 +64,14 @@ RSpec.describe EntityReport::Interactors::CreateReport do
 
 			include_examples 'CreateReport fails', EntityReport::Errors::UnprocessableError
 		end
+		
+		context 'when user reports the same reportable twice' do
+			before do
+				Report.create(report_attributes.merge(user_id: current_user.id))
+			end
+			
+			include_examples 'CreateReport fails', EntityReport::Errors::UnprocessableError
+		end
 	end
 
 	context 'with missing params' do
