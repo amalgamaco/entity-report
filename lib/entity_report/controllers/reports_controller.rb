@@ -12,6 +12,9 @@ module EntityReport
 			REQUIRED_METHODS = [ :current_user, :report_klass, :report_mailer ]
 
 			def create
+				# [HIGH] - Si sacamos el serializer entonces acá deberíamos llamar a otro método, tipo
+				# render_report que debería ir en REQUIRED_METHODS y que deberíamos pedir que
+				# implementen para que funcione. Ver comentario que deje en el serializer.
 				render_successful_response CreateReport
 						.with(
 							current_user: current_user,
@@ -20,6 +23,13 @@ module EntityReport
 							report_klass: report_klass
 						), ReportSerializer
 			end
+
+			# [IMP] - Como improvement podríamos proveer:
+			# - un index donde se listen los reports que hizo el current_user y que se pueda
+			#   filtrar por reportable_type
+			# - un show para mostrar un report particular
+
+			# También estaría buen tener un módulo que 
 
 		private
 

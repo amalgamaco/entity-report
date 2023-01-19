@@ -1,5 +1,12 @@
 module EntityReport
 	module Errors
+		# [HIGH] - Este y el unprocessable son casi iguales y ninguno de los dos por
+		# lo que vi en error_raiser va a tener nunca errors. Tampoco creo que
+		# sea necesaria toda la parte de `as_jsonapi_errors` ya que vamos a tratar
+		# de desacoplarnos de eso. Yo para simplificarlo haría:
+		# 1. Volaría este InvalidError ya que es básicamente lo mismo que el Error si
+		#    no tiene errors (que siempre se le pasa nil asi que no los tiene).
+		# 2. Haría que UnprocessableError lo único que haga sea pisasr el http_status_code.
 		class InvalidError < EntityReport::Errors::Error
 			def as_jsonapi_errors
 				return super if errors.nil?

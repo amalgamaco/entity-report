@@ -1,7 +1,8 @@
 module EntityReport
 	module Modules
+	# Acá falta un tab
 	module Renderer
-
+		# [HIGH] - Esto no lo haría, dejaría que sea total responsabilidad de quien lo integra como renderizar los errores
 			include EntityReport::Errors
 			
 			def render_successful_response(object, serializer, options = {})
