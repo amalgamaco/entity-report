@@ -83,7 +83,7 @@ module EntityReport
 				begin
 					return reportable_type.camelize.constantize
 				rescue NameError
-					invalid :reportable_type, "#{reportable_type} is not a valid reportable_type"
+					error :reportable_type, "#{reportable_type} is not a valid reportable_type"
 				end
 			end
 

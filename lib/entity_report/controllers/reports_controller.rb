@@ -2,24 +2,26 @@ module EntityReport
 	module Controllers
 		module ReportsController
 			extend ActiveSupport::Concern
-			include EntityReport::Modules
 			include EntityReport::Interactors
-			include EntityReport::Serializers
-			include Renderer
-			include ErrorRaiser
-			include ApiHandlers
 			
-			REQUIRED_METHODS = [ :current_user, :report_klass, :report_mailer ]
+			REQUIRED_METHODS = [ :current_user, :report_klass, :report_mailer, :render_report ]
 
 			def create
-				render_successful_response CreateReport
+				render_report CreateReport
 						.with(
 							current_user: current_user,
 							report_mailer: report_mailer,
 							report_attributes: report_attributes,
 							report_klass: report_klass
-						), ReportSerializer
+						)
 			end
+
+			# [IMP] - Como improvement podríamos proveer:
+			# - un index donde se listen los reports que hizo el current_user y que se pueda
+			#   filtrar por reportable_type
+			# - un show para mostrar un report particular
+
+			# También estaría buen tener un módulo que 
 
 		private
 

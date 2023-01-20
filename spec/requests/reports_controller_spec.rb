@@ -1,5 +1,8 @@
 require 'swagger_helper'
 
+# [IMP] - No veo necesarios los tests de swagger en la gema ya que los va a tener
+# que volver a implementar la app en sí para documentar sus endpoints. En cambio
+# se podría tener tests de controller tradicionales.
 RSpec.describe '/reports', type: :request do
 	let!(:current_user) { create :user }
 	let(:serializer) do
