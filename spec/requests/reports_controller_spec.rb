@@ -69,6 +69,14 @@ RSpec.describe '/reports', type: :request do
 				let(:reportable) { current_user }
 				include_context 'swagger setup and run test'
 			end
+
+			response(422, 'Already reported by current user') do
+				before do
+					Report.create(report_params.merge(user_id: current_user.id))
+				end
+				
+				include_context 'swagger setup and run test'
+			end
 		end
 	end
 end

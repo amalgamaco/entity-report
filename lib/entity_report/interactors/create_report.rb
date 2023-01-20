@@ -22,7 +22,7 @@ module EntityReport
 
 			def execute
 				validate_report_attributes
-
+				validate_report_doesnt_exists
 				transaction do
 					create_report
 					send_email
@@ -44,6 +44,15 @@ module EntityReport
 				%i[reportable_type reportable_id reason].each do |param|
 					invalid param, "#{param} attribute missing" if @report_attributes[param].nil?
 				end
+			end
+
+			def validate_report_doesnt_exists
+				unprocessable :report, "You have already reported this #{reportable_type}" \
+					if @report_klass.exists?(
+						reportable_id: reportable_id, 
+						reportable_type: reportable_type, 
+						user_id: @current_user.id
+					)
 			end
 
 			def validate_reportable_type
