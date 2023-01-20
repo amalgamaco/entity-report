@@ -16,7 +16,6 @@ module EntityReport
 	module Modules
 		autoload :Reportable, 'entity_report/modules/reportable'
 		autoload :ErrorRaiser, 'entity_report/modules/error_raiser'
-		autoload :Renderer, 'entity_report/modules/renderer'
 		autoload :ApiHandlers, 'entity_report/modules/api_handlers'
 	end
 

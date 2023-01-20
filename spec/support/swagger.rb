@@ -1,4 +1,3 @@
-# [HIGH] Faltaron los tests del modelo report, no?
 module Swagger
 	DEFINITIONS_PATH = Rails.root.join 'swagger/definitions'
 

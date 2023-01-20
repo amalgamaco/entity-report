@@ -12,19 +12,8 @@ module EntityReport
 				@attribute = attribute
 			end
 
-			def as_jsonapi_errors
-				[
-					{
-						title: title,
-						code: @error_name,
-						detail: @error_message,
-						source: { pointer: source }
-					}
-				]
-			end
-
 			def http_status_code
-				400
+				raise 'must be implemented in subclass'
 			end
 
 		private
