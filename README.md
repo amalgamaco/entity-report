@@ -1,46 +1,40 @@
 # EntityReport
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/entity_report`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your project's Gemfile:
 
 ```ruby
-gem 'entity_report'
+gem 'entity_report', github: 'amalgamaco/entity-report'
 ```
 
 And then execute:
 
-	$ bundle install
-
-Or install it yourself as:
-
-	$ gem install entity_report
+```shell
+bundle install
+```
 
 ## Usage
 
 After installing the gem run the following command:
 
 ```shell
-	rails g entity_report:install
+rails g entity_report:install
 ```
 
 This command will generate:
-	- Report model (app/models/report.rb)
-	- Report Migration (db/migrate/xxxxxxxxxxxxxx_create_reports.rb)
-	- Report Mailer (app/mailers/report_mailer.rb)
-	- Report Mail (app/views/report_mailer/report_email.html.erb)
-	- Report Mail Text (app/views/report_mailer/report_email.text.erb)
+- Report model (app/models/report.rb)
+- Report Migration (db/migrate/xxxxxxxxxxxxxx_create_reports.rb)
+- Report Mailer (app/mailers/report_mailer.rb)
+- Report Mail (app/views/report_mailer/report_email.html.erb)
+- Report Mail Text (app/views/report_mailer/report_email.text.erb)
 
 You can customize the given files to match your necessities.
 
 The gem provides two modules that you should include to make things work:
 
 ```ruby
-	EntityReport::Modules::Reportable
+EntityReport::Modules::Reportable
 ```
 
 This module should be included in classes that could be reported (also, those classes must be listed in the Report's REPORTABLE_TYPES). The Reportable module requires the method `reportable_by_user?(user_id:)` implemented in the including class.
@@ -48,20 +42,20 @@ This module should be included in classes that could be reported (also, those cl
 For example: 
 
 ```ruby
-	class User < ApplicationRecord
+class User < ApplicationRecord
 
-		include EntityReport::Modules::Reportable
-	
-		def reportable_by_user?(user_id:)
-			user_id != self.id
-		end
+	include EntityReport::Modules::Reportable
+
+	def reportable_by_user?(user_id:)
+		user_id != self.id
 	end
+end
 ```
 
 The other important module is:
 
 ```ruby
-	EntityReport::Controllers::ReportsController
+EntityReport::Controllers::ReportsController
 ```
 
 This module should be included in a controller that implements `render_report(report)`, `report_mailer` and `report_klass`
@@ -69,37 +63,37 @@ This module should be included in a controller that implements `render_report(re
 For example:
 
 ```ruby
-	class ReportsController < ApplicationController
-		include EntityReport::Controllers::ReportsController
+class ReportsController < ApplicationController
+	include EntityReport::Controllers::ReportsController
 
-		#Adapt rescues to your proyect!
-		rescue_from EntityReport::Errors::Error, with: :render_error
+	#Adapt rescues to your proyect!
+	rescue_from EntityReport::Errors::Error, with: :render_error
 
-		def report_klass
-			Report
-		end
-
-		def report_mailer
-			ReportMailer
-		end
-
-		def render_report(report)
-			#Adapt this method to your code
-			render_successful_response report, ReportSerializer
-		end
+	def report_klass
+		Report
 	end
+
+	def report_mailer
+		ReportMailer
+	end
+
+	def render_report(report)
+		#Adapt this method to your code
+		render_successful_response report, ReportSerializer
+	end
+end
 ```
 
 Once included, this module provides the `create` method that requires the following params:
 
 ```ruby
-	:reportable_type, :reportable_id, :reason, :description
+:reportable_type, :reportable_id, :reason, :description
 ```
 
 With that setup made, the only thing left is to add the route:
 
 ```ruby
-	resources :reports, only: [:create]
+resources :reports, only: [:create]
 ```
 
 ## Development
